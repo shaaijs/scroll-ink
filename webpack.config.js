@@ -28,6 +28,7 @@ module.exports = {
         new MiniCssExtractPlugin()
     ],
     devServer: {
-        hot: true
+        hot: true,
+        host : '192.168.0.116',
     }
 };

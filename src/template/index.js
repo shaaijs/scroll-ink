@@ -1,9 +1,14 @@
-import { list } from './NodeGenerators'
-import shaai from './../../shaai'
+import router from './Routers'
 
-export default (template) => {
-    //parse template and return corresponding structure
-    return shaai.getAll().then(data => {
-        return [list(data)]
-    })
+export default (templates) => {
+    /*
+        templates: [
+            {
+                path: '/',
+                template: function(data) => node,
+                fetch: function(options) => data
+            }
+        ]
+    */
+    router.registerRoutes(templates)
 }

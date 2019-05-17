@@ -1,9 +1,10 @@
-module.exports = {
+const shaai = {
     getAll() {
         return new Promise(res => {
             res([
                 {
                     id: 1,
+                    date: Date.now(),
                     title: 'My encounter with Babel',
                     subtitle: 'How I built a Node app with plain Babel',
                     content: `There once was a story about a man who could turn invisible. I thought it was only a story... until it happened to me. Ok, so here's how it works: there's this stuff called Quicksilver that can bend light. Some scientist made it into a synthetic gland, and that's where I came in. See, I was facing life in prison and they were looking for a human experiment. So, we made a deal. They put the gland in my brain; I walk free. The operation was a success... but that's where everything started to go wrong.
@@ -14,7 +15,8 @@ module.exports = {
                 },
                 {
                     id: 2,
-                    title: 'My encounter with Babel',
+                    date: Date.now(),
+                    title: 'How I stumbled upon Webpack',
                     subtitle: 'How I built a Node app with plain Babel',
                     content: `There once was a story about a man who could turn invisible. I thought it was only a story... until it happened to me. Ok, so here's how it works: there's this stuff called Quicksilver that can bend light. Some scientist made it into a synthetic gland, and that's where I came in. See, I was facing life in prison and they were looking for a human experiment. So, we made a deal. They put the gland in my brain; I walk free. The operation was a success... but that's where everything started to go wrong.
 
@@ -24,7 +26,8 @@ module.exports = {
                 },
                 {
                     id: 3,
-                    title: 'My encounter with Babel',
+                    date: Date.now(),
+                    title: 'On why React dumped jQuery',
                     subtitle: 'How I built a Node app with plain Babel',
                     content: `There once was a story about a man who could turn invisible. I thought it was only a story... until it happened to me. Ok, so here's how it works: there's this stuff called Quicksilver that can bend light. Some scientist made it into a synthetic gland, and that's where I came in. See, I was facing life in prison and they were looking for a human experiment. So, we made a deal. They put the gland in my brain; I walk free. The operation was a success... but that's where everything started to go wrong.
 
@@ -34,7 +37,8 @@ module.exports = {
                 },
                 {
                     id: 4,
-                    title: 'My encounter with Babel',
+                    date: Date.now(),
+                    title: 'Node here and node there',
                     subtitle: 'How I built a Node app with plain Babel',
                     content: `There once was a story about a man who could turn invisible. I thought it was only a story... until it happened to me. Ok, so here's how it works: there's this stuff called Quicksilver that can bend light. Some scientist made it into a synthetic gland, and that's where I came in. See, I was facing life in prison and they were looking for a human experiment. So, we made a deal. They put the gland in my brain; I walk free. The operation was a success... but that's where everything started to go wrong.
 
@@ -44,5 +48,12 @@ module.exports = {
                 }
             ])
         })
+    },
+    getOne(id) {
+        return shaai.getAll().then(data => {
+            return data.filter(d => d.id === id)
+        })
     }
 }
+
+module.exports = shaai
