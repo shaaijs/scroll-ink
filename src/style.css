@@ -55,7 +55,7 @@ body {
     margin-top: 10px;
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 620px) {
     #shaai_root {
         width: auto;
         padding: 0 10px;
