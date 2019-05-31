@@ -18,43 +18,19 @@ body {
 }
 
 #shaai_root {
-    width: 600px;
+    width: 1000px;
     margin: 50px auto;
 }
 
-.blog-navmenulist {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.blog-navmenuitem {
-    display: inline-block;
-    padding: 5px 10px;
-    margin-right: 10px;
-    background: #efefef;
-    color: #4169E1;
-    border-radius: 4px;
-    transition: all 200ms ease-in-out;
-}
-
-.blog-navmenuitem:hover {
-    cursor: pointer;
-    background: #4169E1;
-    color: #efefef;
-}
-
-.blog-navmenuitem-active {
-    background: #4169E1;
-    color: #efefef;
-}
-
 .blog-list {
-    
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .post {
-
+    max-height: 200px;
+    max-width: 400px;
+    overflow: hidden;
 }
 
 .post-title {

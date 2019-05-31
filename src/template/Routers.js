@@ -1,3 +1,5 @@
+import shaai from './../../shaai'
+import store from './store'
 import pathToRegexp from 'path-to-regexp'
 import { appendToRoot, flushRoot } from './DOMFunctions'
 import history from './history'
@@ -11,7 +13,9 @@ class Router {
         this.resolveRoute = this.resolveRoute.bind(this)
     }
 
-    registerRoutes(routes) {
+    registerRoutes(routes, config) {
+        this.config = config
+        this.history = config.history || history
         routes.forEach(r => {
             if(/:/g.test(r.path)) {
                 this.routes[r.path] = r
@@ -20,11 +24,12 @@ class Router {
                 this.routes[r.path] = r
             }
         })
-        window.addEventListener('load', this.handleRoutes);
-        history.listen(this.handleRoutes)
+        window.addEventListener('load', (e) => this.handleRoutes(window.location));
+        this.history.listen(this.handleRoutes)
     }
 
     handleRoutes(location, action) {
+        console.log(location.pathname)
         const url = location.pathname || '/'
         const { routeResolved, params } = this.resolveRoute(url)
         /*
@@ -35,11 +40,16 @@ class Router {
         */
         try {
             flushRoot()
-            routeResolved.fetch(params).then(data => {
-                appendToRoot([routeResolved.template(data)])
-            })
+            if(routeResolved.fetch) {
+                routeResolved.fetch(shaai, store, params).then(data => {
+                    appendToRoot([routeResolved.template(data)])
+                })
+            } else {
+                appendToRoot([routeResolved.template()])
+            }
         } catch(e) {
-            throw new Error('There was no fetch method defined. fetch is necessary to push data into the template.', e)
+            console.error(e)
+            throw new Error(`There was no fetch method defined for url '${url}'. fetch is necessary to push data into the template.`)
         }
     }
 

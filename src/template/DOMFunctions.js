@@ -10,12 +10,12 @@ export const appendToRoot = (nodes, rootId = config.root) => {
 
 export const flushRoot = () => {
     let root = document.getElementById(config.root);
-    let title
+    let temp = []
     while (root.firstChild) {
-        if(root.firstChild.id === 'blogTitle')
-            title = root.removeChild(root.firstChild);
+        if(root.firstChild.id === 'blogTitle' || root.firstChild.id === 'blogNavmenu')
+            temp.push(root.removeChild(root.firstChild))
         else root.removeChild(root.firstChild);
     }
 
-    root.appendChild(title)
+    temp.forEach(t => root.appendChild(t))
 }

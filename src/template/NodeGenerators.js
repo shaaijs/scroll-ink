@@ -1,50 +1,44 @@
 import { bind } from './EventBinders'
-import config from './../../shaai.config'
+import keyToElement from './helpers/keyToElementMap'
 import history from './history'
 
 let d = window.document
 export const list = (data, options = { minimiseContent: true }) => {
+    if(!data) throw Error(`Data needs to be an Array. Got ${data}.`)
     let list_root = d.createElement('div')
+    list_root.className = 'blog-list'
     for(let i = 0; i < data.length; i++) {
         let current = data[i]
         let currentElement = fillListElement(d.createElement('div'), current, options)
         list_root.appendChild(currentElement)
     }
-
     return list_root
 }
 
-export const one = (data) => {
-    return list(data, { minimiseContent: false })
+export const one = (data, options = { minimiseContent: false }) => {
+    return list(data, options)
 }
 
-export const fillListElement = (el, data, options = { minimiseContent: true }) => {
+export const fillListElement = (el, data, { minimiseContent = true, viewFilter }) => {
     let element = {}
-    element.title = bind(d.createElement('h1'), [{name: 'click', handler: e => {
-        history.push(`/post/${data.id}`)
-    }}])
-    element.title.className = 'post-title'
-    element.subtitle = d.createElement('p')
-    element.subtitle.className = 'post-subtitle'
-    element.date = d.createElement('p')
-    element.date.className = 'post-date'
-    element.content = d.createElement('p')
-    element.content.className = 'post-content'
-    Object.keys(element).forEach(key => {
+    let dataKeys = viewFilter && viewFilter.length ? Object.keys(data).filter(k => viewFilter.indexOf(k) > -1) : Object.keys(data)
+    dataKeys.forEach(key => {
+        let elementConfig = keyToElement(key)
+        element[key] = d.createElement(elementConfig.tag)
         switch(key) {
             case 'content':
-                element[key].textContent = options.minimiseContent ? data[key].slice(0, config.postPreviewSize) + '. . . .' : data[key]
-                el.appendChild(element[key])
-                break
-            case 'date':
-                element[key].textContent = new Date(data[key]).toDateString()
-                el.appendChild(element[key])
+                element[key].innerHTML = minimiseContent ? data[key].slice(0, 100) : data[key]
                 break
             default:
-                element[key].textContent = data[key]
-                el.appendChild(element[key])
+                element[key].textContent = elementConfig.transform ? elementConfig.transform(data[key]) : data[key]
         }
+
+        elementConfig.events && elementConfig.events.length && (element[key] = bind(element[key], elementConfig.events, data))
+        element[key].className = elementConfig.className
+        el.appendChild(element[key])
     })
+
+    el.className = 'post'
     return el
 }
 
@@ -65,4 +59,29 @@ export const blogTitle = (data) => {
     subtitle && titleRoot.appendChild(subtitle)
 
     return titleRoot
+}
+
+export const navMenu = (data) => {
+    let menu = d.createElement('ul')
+    menu.className = 'blog-navmenulist'
+console.log(data)
+    data.forEach(item => {
+        let menuItem = d.createElement('li')
+        menuItem.className = 'blog-navmenuitem'
+        menuItem.textContent = item.name
+        menuItem = bind(menuItem, [{
+            name: 'click',
+            handler: item.handler ? (e) => item.handler(e, item) : (e) => {
+                history.push(item.path)
+            }
+        }], item)
+        menu.appendChild(menuItem)
+    })
+
+    let menu_root = d.createElement('div')
+    menu_root.id = 'blogNavmenu'
+    menu_root.className = 'blog-navmenu'
+    menu_root.appendChild(menu)
+    
+    return menu_root
 }

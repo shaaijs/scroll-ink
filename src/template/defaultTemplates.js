@@ -1,13 +1,9 @@
-import ScrollInk from './entry'
-import config from './../shaai.config'
-
-const s = new ScrollInk(config)
-
-const templates = [
+import { list, one } from './NodeGenerators'
+export default [
     {
         path: '/',
         name: 'Posts',
-        template: (data) => s.list(data, { minimiseContent: true, viewFilter: ['title', 'content', 'publishData'] }),
+        template: (data) => list(data, { minimiseContent: true, viewFilter: ['title', 'content', 'publishData'] }),
         fetch: (shaai, store, params) => {
             return new Promise(res => {
                 if(store.getData('posts')) {
@@ -23,7 +19,7 @@ const templates = [
     {
         path: '/post/:id',
         name: 'Single Post',
-        template: (data) => s.one(data, { minimiseContent: false, viewFilter: ['title', 'content', 'publishData'] }),
+        template: (data) => one(data, { minimiseContent: false, viewFilter: ['title', 'content', 'publishData'] }),
         fetch: (shaai, store, params) => {
             if(store.getData('posts')) {
                 return new Promise(res => res(store.getData('posts').filter(p => p.guid.split('/p/')[1] === params[1])))
@@ -48,9 +44,3 @@ const templates = [
         }
     }
 ]
-
-const init = () => {
-    s.load(templates)
-}
-
-init()

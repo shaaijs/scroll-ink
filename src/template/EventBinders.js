@@ -1,8 +1,8 @@
 let d = window.document
 
-export const bind = (el, events) => {
+export const bind = (el, events, data) => {
     events.forEach(e => {
-        el.addEventListener(e.name, e.handler)
+        el.addEventListener(e.name, (event) => e.handler(event, data))
     })
     return el
 }

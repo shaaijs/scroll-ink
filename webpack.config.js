@@ -1,7 +1,13 @@
 const webpack = require('webpack')
+const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'main.js',
+        publicPath: '/'
+    },
     module: {
         rules: [
             {
@@ -29,6 +35,7 @@ module.exports = {
     ],
     devServer: {
         hot: true,
-        host : '192.168.0.116',
+        historyApiFallback: true
+        // host : '192.168.0.116',
     }
 };
