@@ -1,8 +1,8 @@
 {
   "name": "@shaai/scroll-ink",
-  "version": "0.1.0",
+  "version": "0.1",
   "description": "Ink template for Shaai",
-  "main": "index.js",
+  "main": "dist/main.js",
   "scripts": {
     "start": "nodemon --exec babel-node index.js",
     "webpack": "webpack",
@@ -40,7 +40,7 @@
     "webpack-dev-server": "^3.3.1"
   },
   "dependencies": {
-    "@shaai/core": "^0.5.1",
+    "@shaai/core": "^0.6.3",
     "babel-loader": "^8.0.5",
     "dotenv": "^8.0.0",
     "history": "^4.9.0",

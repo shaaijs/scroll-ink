@@ -90,6 +90,10 @@ body {
     margin-top: 10px;
 }
 
+.post-content p {
+    margin: 0;
+}
+
 .post-content figure {
     margin: 0
 }

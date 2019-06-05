@@ -10,7 +10,6 @@ export default (key) => {
                     {
                         name: 'click', 
                         handler: (e, data) => {
-                            console.log(data)
                             history.push(`/post/${data.guid.split('/p/')[1]}`)
                             window.scrollTo(0, 0)
                         }

@@ -21,7 +21,9 @@ export const one = (data, options = { minimiseContent: false }) => {
 
 export const fillListElement = (el, data, { minimiseContent = true, viewFilter }) => {
     let element = {}
-    let dataKeys = viewFilter && viewFilter.length ? Object.keys(data).filter(k => viewFilter.indexOf(k) > -1) : Object.keys(data)
+    let dataKeys = viewFilter && viewFilter.length ? Object.keys(data).filter(k => viewFilter.indexOf(k) > -1).sort((a, b) => {
+        return viewFilter.indexOf(a) - viewFilter.indexOf(b)
+    }) : Object.keys(data)
     dataKeys.forEach(key => {
         let elementConfig = keyToElement(key)
         element[key] = d.createElement(elementConfig.tag)
@@ -42,29 +44,51 @@ export const fillListElement = (el, data, { minimiseContent = true, viewFilter }
     return el
 }
 
-export const blogTitle = (data) => {
-    let title = d.createElement('h1'), subtitle
-    title.className = 'blog-title'
-    title.textContent = data.title
-
-    if(data.subtitle) {
-        subtitle = d.createElement('p')
-        title.className = 'blog-subtitle'
-        title.textContent = data.subtitle
+export const blogHeader = (data) => {
+    let headerRoot = d.createElement('div')
+    headerRoot.id = 'blogHeader'
+    let header
+    if(data.title) {
+        header = d.createElement('h1')
+        header.className = 'blog-header-title'
+        header.textContent = data.title
+    } else if(data instanceof HTMLElement) {
+        header = data
+    } else {
+        header = d.createElement('h1')
+        header.className = 'blog-header-title'
+        header.textContent = 'My blog'
     }
 
-    let titleRoot = d.createElement('div')
-    titleRoot.id = 'blogTitle'
-    titleRoot.appendChild(title)
-    subtitle && titleRoot.appendChild(subtitle)
+    headerRoot.appendChild(header)
 
-    return titleRoot
+    return headerRoot
+}
+
+export const blogFooter = (data) => {
+    let footerRoot = d.createElement('div')
+    footerRoot.id = 'blogFooter'
+    let footer
+    if(data.title) {
+        footer = d.createElement('h1')
+        footer.className = 'blog-footer-title'
+        footer.textContent = data.title
+    } else if(data instanceof HTMLElement) {
+        footer = data
+    } else {
+        footer = d.createElement('h1')
+        footer.className = 'blog-footer-title'
+        footer.textContent = 'My blog'
+    }
+
+    footerRoot.appendChild(footer)
+
+    return footerRoot
 }
 
 export const navMenu = (data) => {
     let menu = d.createElement('ul')
     menu.className = 'blog-navmenulist'
-console.log(data)
     data.forEach(item => {
         let menuItem = d.createElement('li')
         menuItem.className = 'blog-navmenuitem'

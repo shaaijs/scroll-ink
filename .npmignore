@@ -1,0 +1,6 @@
+test/
+.npmignore
+.babelrc
+src/
+.env
+webpack.*
