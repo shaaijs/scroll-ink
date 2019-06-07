@@ -1,6 +1,7 @@
 import shaai from '@shaai/core'
 import store from './store'
 import pathToRegexp from 'path-to-regexp'
+import Html from './Html'
 import { appendToRoot, flushRoot } from './DOMFunctions'
 import history from './history'
 import { blogHeader, blogFooter, navMenu } from './NodeGenerators';
@@ -14,11 +15,12 @@ class Router {
         this.resolveRoute = this.resolveRoute.bind(this)
     }
 
-    registerRoutes(routes, config) {
+    registerRoutes(routes, config, subscribe) {
         this.config = config
         this.shaai = shaai({
             source: config.source
         })
+        this.subscribe = subscribe
         this.history = config.history || history
         routes.forEach(r => {
             if(/:/g.test(r.path)) {
@@ -42,7 +44,7 @@ class Router {
             2. Create filled in DOM elements and return
         */
         try {
-            flushRoot()
+            Html.set(flushRoot(Html.get(), [], this.config.root), this.subscribe)
             if(routeResolved.fetch) {
                 routeResolved.fetch(this.shaai, store, params).then(data => {
                     let elements = []
@@ -50,7 +52,7 @@ class Router {
                     this.config.globalNav === true && (routeResolved.showNav === true || routeResolved.showNav === undefined) && elements.push(navMenu(Object.values(this.routes).filter(t => !/:/.test(t.path))))                    
                     elements.push(routeResolved.template(data))
                     this.config.globalFooter === true && (routeResolved.showFooter === true || routeResolved.showFooter === undefined) && elements.push(blogFooter(this.config.blogFooter))                    
-                    appendToRoot(elements)
+                    Html.set(appendToRoot(elements, this.config.root), this.subscribe)
                 })
             } else {
                 let elements = []
@@ -58,7 +60,7 @@ class Router {
                 this.config.globalNav === true && (routeResolved.showNav === true || routeResolved.showNav === undefined) && elements.push(navMenu(Object.values(this.routes).filter(t => !/:/.test(t.path))))                    
                 elements.push(routeResolved.template())
                 this.config.globalFooter === true && (routeResolved.showFooter === true || routeResolved.showFooter === undefined) && elements.push(blogFooter(this.config.blogFooter))                    
-                appendToRoot(elements)
+                Html.set(appendToRoot(elements, this.config.root), this.subscribe)
             }
         } catch(e) {
             console.error(e)

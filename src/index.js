@@ -1,13 +1,14 @@
 import template from './template'
 import defaultTemplates from './template/defaultTemplates'
-import { list, one, blogHeader, navMenu } from './template/NodeGenerators'
+import { list, one } from './template/NodeGenerators'
 import './style.css'
 
 console.log('Hello, Shaai!')
 
 class ScrollInk {
-    constructor(config) {
+    constructor(config, subscribe) {
         this.config = config
+        this.subscribe = subscribe //function that will receive DOM updates
         let meta = document.createElement('meta')
         meta.content = 'width=device-width, initial-scale=1'
         meta.name = 'viewport'
@@ -20,7 +21,7 @@ class ScrollInk {
 
     load(templates) {
         if(!templates) templates = defaultTemplates        
-        template(templates, this.config)
+        template(templates, this.config, this.subscribe)
     }
 
     list(data, options) {

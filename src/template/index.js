@@ -1,6 +1,6 @@
 import router from './Routers'
 
-export default (templates, config) => {
+export default (templates, config, subscribe) => {
     /*
         templates: [
             {
@@ -10,5 +10,5 @@ export default (templates, config) => {
             }
         ]
     */
-    router.registerRoutes(templates, config)
+    router.registerRoutes(templates, config, subscribe)
 }

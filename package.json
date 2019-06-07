@@ -1,6 +1,6 @@
 {
   "name": "@shaai/scroll-ink",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "Ink template for Shaai",
   "main": "dist/main.js",
   "scripts": {
@@ -40,7 +40,7 @@
     "webpack-dev-server": "^3.3.1"
   },
   "dependencies": {
-    "@shaai/core": "^0.6.3",
+    "@shaai/core": "^0.7.0",
     "babel-loader": "^8.0.5",
     "dotenv": "^8.0.0",
     "history": "^4.9.0",

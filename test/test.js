@@ -1,7 +1,11 @@
-import ScrollInk from './entry'
-import config from './../shaai.config'
+import ScrollInk from './../src'
+import config from './shaai.config'
 
-const s = new ScrollInk(config)
+const s = new ScrollInk(config, subscribe)
+
+const subscribe = (html) => {
+    console.log(html)
+}
 
 const templates = [
     {
@@ -50,6 +54,7 @@ const templates = [
 ]
 
 const init = () => {
+    console.log('load')
     s.load(templates)
 }
 
