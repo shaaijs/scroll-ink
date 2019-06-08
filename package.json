@@ -1,6 +1,6 @@
 {
   "name": "@shaai/scroll-ink",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "Ink template for Shaai",
   "main": "dist/main.js",
   "scripts": {
