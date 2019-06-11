@@ -1,7 +1,9 @@
 class Html {
     set(html, cb) {
         this.currentHtml = html
-        cb(html)
+        let temp = document.createElement('div')
+        temp.appendChild(this.currentHtml)
+        cb(html, temp.innerHTML)
     }
 
     get() {

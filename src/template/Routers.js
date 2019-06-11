@@ -44,7 +44,7 @@ class Router {
             2. Create filled in DOM elements and return
         */
         try {
-            Html.set(flushRoot(Html.get(), [], this.config.root), this.subscribe)
+            Html.get() && Html.set(flushRoot(Html.get(), [], this.config.root), this.subscribe)
             if(routeResolved.fetch) {
                 routeResolved.fetch(this.shaai, store, params).then(data => {
                     let elements = []
