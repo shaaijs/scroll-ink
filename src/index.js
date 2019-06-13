@@ -13,9 +13,6 @@ class ScrollInk {
         meta.content = 'width=device-width, initial-scale=1'
         meta.name = 'viewport'
         document.head.appendChild(meta)
-    
-        let root = document.createElement('div')
-        root.id = config.root
     }
 
     load(templates) {

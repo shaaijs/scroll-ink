@@ -3,7 +3,7 @@ export default [
     {
         path: '/',
         name: 'Posts',
-        template: (data) => list(data, { minimiseContent: true, viewFilter: ['title', 'content', 'publishData'] }),
+        template: (data) => list(data, { minimiseContent: true, viewFilter: ['title', 'modified', 'subtitle'] }),
         fetch: (shaai, store, params) => {
             return new Promise(res => {
                 if(store.getData('posts')) {
@@ -22,8 +22,8 @@ export default [
         template: (data) => one(data, { minimiseContent: false, viewFilter: ['title', 'content', 'publishData'] }),
         fetch: (shaai, store, params) => {
             if(store.getData('posts')) {
-                return new Promise(res => res(store.getData('posts').filter(p => p.guid.split('/p/')[1] === params[1])))
-            } else return new Promise(res => shaai.getBlogs().then(data => res(data.items.filter(p => p.guid.split('/p/')[1] === params[1]))))
+                return new Promise(res => res(store.getData('posts').filter(p => p._id === params[1])))
+            } else return new Promise(res => shaai.getBlogs().then(data => res(data.items.filter(p => p._id === params[1]))))
         }
     },
     {

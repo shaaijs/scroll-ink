@@ -10,7 +10,7 @@ export default (key) => {
                     {
                         name: 'click', 
                         handler: (e, data) => {
-                            history.push(`/post/${data.guid.split('/p/')[1]}`)
+                            history.push(`/post/${data._id}`)
                             window.scrollTo(0, 0)
                         }
                     }
@@ -27,12 +27,12 @@ export default (key) => {
                 className: 'post-content'
             }
         case 'publishData':
-        case 'publishedDate':
+        case 'modified':
             return {
                 tag: 'div',
                 className: 'post-publishedDate',
                 transform: (date) => {
-                    return date
+                    return new Date(date).toDateString()
                 }
             }
         case 'link':

@@ -25,5 +25,6 @@ export const flushRoot = (root, skipThese, rootId) => {
 const createRoot = (id) => {
     let root = d.createElement('div')
     root.id = id
+    root.className = 'blog-root'
     return root
 }
