@@ -9,6 +9,7 @@
     --transition-duration: 200ms;
     
     --main-text-size: 18px;
+    --code-text-size: 15px;
 }
 
 body {
@@ -18,7 +19,7 @@ body {
 }
 
 .blog-root {
-    width: 600px;
+    max-width: 600px;
     margin: 50px auto;
 }
 
@@ -34,7 +35,7 @@ body {
     margin-right: 10px;
     background: #efefef;
     color: #4169E1;
-    border-radius: 4px;
+    border-radius: 3px;
     transition: all 200ms ease-in-out;
 }
 
@@ -101,6 +102,23 @@ body {
 
 .post-content figure img {
     max-width: 100%
+}
+
+.post-content pre {
+    overflow: auto;
+    background: #eeeeee;
+    padding: 1em;
+    border-radius: 5px;
+    font-size: var(--code-text-size);
+}
+
+.post-content pre code {
+    color: var(--primary-dark);
+}
+
+.post-content code {
+    font-size: var(--code-text-size);
+    color: var(--primary-red);
 }
 
 @media screen and (max-width: 620px) {

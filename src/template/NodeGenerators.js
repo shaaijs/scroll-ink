@@ -1,6 +1,7 @@
 import { bind } from './EventBinders'
 import keyToElement from './helpers/keyToElementMap'
 import history from './history'
+import store from './store'
 
 let d = window.document
 export const list = (data, options = { minimiseContent: true }) => {
@@ -91,12 +92,12 @@ export const navMenu = (data) => {
     menu.className = 'blog-navmenulist'
     data.forEach(item => {
         let menuItem = d.createElement('li')
-        menuItem.className = 'blog-navmenuitem'
+        menuItem.className = `blog-navmenuitem ${store.getData('currentPath') === item.path ? 'blog-navmenuitem-active' : ''}`
         menuItem.textContent = item.name
         menuItem = bind(menuItem, [{
             name: 'click',
             handler: item.handler ? (e) => item.handler(e, item) : (e) => {
-                history.push(item.path)
+                history().push(item.path)
             }
         }], item)
         menu.appendChild(menuItem)

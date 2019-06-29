@@ -15,13 +15,12 @@ class Router {
         this.resolveRoute = this.resolveRoute.bind(this)
     }
 
-    registerRoutes(routes, config, subscribe) {
+    registerRoutes(routes, config) {
         this.config = config
         this.shaai = shaai({
             source: config.source
         })
-        this.subscribe = subscribe
-        this.history = config.history || history
+        this.history = history(config)
         routes.forEach(r => {
             if(/:/g.test(r.path)) {
                 this.routes[r.path] = r
@@ -30,12 +29,12 @@ class Router {
                 this.routes[r.path] = r
             }
         })
-        window.addEventListener('load', (e) => this.handleRoutes(window.location));
-        this.history.listen(this.handleRoutes)
+        window.addEventListener('load', (e) => this.handleRoutes(this.config.basePath ? window.location.pathname.split(this.config.basePath)[1] : window.location.pathname));
+        this.history.listen((location) => this.handleRoutes(location.pathname))
     }
 
-    handleRoutes(location, action) {
-        const url = location.pathname || '/'
+    handleRoutes(path) {
+        const url = path || '/'
         const { routeResolved, params } = this.resolveRoute(url)
         /*
             routeResolved has template, fetch
@@ -43,24 +42,25 @@ class Router {
             1. Fetch data and feed it to the template
             2. Create filled in DOM elements and return
         */
+        store.setData({ currentPath: path })
         try {
-            Html.get() && Html.set(flushRoot(Html.get(), [], this.config.root), this.subscribe)
+            Html.get() && Html.set(flushRoot(Html.get(), [], this.config.root))
             if(routeResolved.fetch) {
                 routeResolved.fetch(this.shaai, store, params).then(data => {
                     let elements = []
                     this.config.globalHeader === true && (routeResolved.showHeader === true || routeResolved.showHeader === undefined) && elements.push(blogHeader(this.config.blogHeader))
                     this.config.globalNav === true && (routeResolved.showNav === true || routeResolved.showNav === undefined) && elements.push(navMenu(Object.values(this.routes).filter(t => !/:/.test(t.path))))                    
-                    elements.push(routeResolved.template(data))
+                    elements.push(routeResolved.template({ data, config: this.config }))
                     this.config.globalFooter === true && (routeResolved.showFooter === true || routeResolved.showFooter === undefined) && elements.push(blogFooter(this.config.blogFooter))                    
-                    Html.set(appendToRoot(elements, this.config.root), this.subscribe)
+                    Html.set(appendToRoot(elements, this.config.root))
                 })
             } else {
                 let elements = []
                 this.config.globalHeader === true && (routeResolved.showHeader === true || routeResolved.showHeader === undefined) && elements.push(blogHeader(this.config.blogHeader))
                 this.config.globalNav === true && (routeResolved.showNav === true || routeResolved.showNav === undefined) && elements.push(navMenu(Object.values(this.routes).filter(t => !/:/.test(t.path))))                    
-                elements.push(routeResolved.template())
+                elements.push(routeResolved.template({ config: this.config }))
                 this.config.globalFooter === true && (routeResolved.showFooter === true || routeResolved.showFooter === undefined) && elements.push(blogFooter(this.config.blogFooter))                    
-                Html.set(appendToRoot(elements, this.config.root), this.subscribe)
+                Html.set(appendToRoot(elements, this.config.root))
             }
         } catch(e) {
             console.error(e)

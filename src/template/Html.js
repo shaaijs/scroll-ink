@@ -1,13 +1,21 @@
 class Html {
-    set(html, cb) {
+    constructor() {
+        this.subscribers = []
+    }
+
+    set(html) {
         this.currentHtml = html
         let temp = document.createElement('div')
         temp.appendChild(this.currentHtml)
-        cb(html, temp.innerHTML)
+        this.subscribers.forEach(s => s(html, temp.innerHTML))
     }
 
     get() {
         return this.currentHtml
+    }
+
+    subscribe(cb) {
+        this.subscribers.push(cb)
     }
 }
 

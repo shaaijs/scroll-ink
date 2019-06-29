@@ -46,7 +46,7 @@ const templates = [
     {
         path: '/about',
         name: 'About',
-        template: () => {
+        template: ({ config }) => {
             let html = `
                 <div>
                     <h4 class="about-heading">About me</h4>

@@ -1,7 +1,7 @@
 import ScrollInk from './../src'
 import config from './shaai.config'
 
-const s = new ScrollInk(config, subscribe)
+const s = new ScrollInk(config)
 
 const subscribe = (html) => {
     console.log(html)
@@ -11,7 +11,7 @@ const templates = [
     {
         path: '/',
         name: 'Posts',
-        template: (data) => s.list(data, { minimiseContent: true, viewFilter: ['title', 'content', 'publishData'] }),
+        template: ({ data }) => s.list(data, { minimiseContent: true, viewFilter: ['title', 'content', 'publishData'] }),
         fetch: (shaai, store, params) => {
             return new Promise(res => {
                 if(store.getData('posts')) {
@@ -27,7 +27,7 @@ const templates = [
     {
         path: '/post/:id',
         name: 'Single Post',
-        template: (data) => s.one(data, { minimiseContent: false, viewFilter: ['title', 'content', 'publishData'] }),
+        template: ({ data }) => s.one(data, { minimiseContent: false, viewFilter: ['title', 'content', 'publishData'] }),
         fetch: (shaai, store, params) => {
             if(store.getData('posts')) {
                 return new Promise(res => res(store.getData('posts').filter(p => p.guid.split('/p/')[1] === params[1])))
@@ -37,7 +37,7 @@ const templates = [
     {
         path: '/about',
         name: 'About',
-        template: () => {
+        template: ({ config }) => {
             let html = `
                 <div>
                     <h4 class="about-heading">About me</h4>
@@ -56,6 +56,7 @@ const templates = [
 const init = () => {
     console.log('load')
     s.load(templates)
+    s.subscribe(subscribe)
 }
 
 init()

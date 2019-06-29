@@ -1,4 +1,5 @@
 import history from './../history'
+import store from './../store'
 
 export default (key) => {
     switch(key) {
@@ -10,7 +11,7 @@ export default (key) => {
                     {
                         name: 'click', 
                         handler: (e, data) => {
-                            history.push(`/post/${data._id}`)
+                            if(store.getData('currentPath') !== `/post/${data._id}`) history().push(`/post/${data._id}`)
                             window.scrollTo(0, 0)
                         }
                     }
