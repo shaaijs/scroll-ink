@@ -29,8 +29,8 @@ class Router {
                 this.routes[r.path] = r
             }
         })
-        window.addEventListener('load', (e) => this.handleRoutes(this.config.basePath ? window.location.pathname.split(this.config.basePath)[1] : window.location.pathname));
         this.history.listen((location) => this.handleRoutes(location.pathname))
+        this.handleRoutes(this.config.basePath ? window.location.pathname.split(this.config.basePath)[1] : window.location.pathname)
     }
 
     handleRoutes(path) {
@@ -63,7 +63,6 @@ class Router {
                 Html.set(appendToRoot(elements, this.config.root))
             }
         } catch(e) {
-            console.error(e)
             throw new Error(`There was no fetch method defined for url '${url}'. fetch is necessary to push data into the template.`)
         }
     }
