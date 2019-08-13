@@ -8,7 +8,8 @@ module.exports = {
         filename: 'main.js',
         library: 'ScrollInk',
         libraryTarget: 'umd',
-        libraryExport: 'default'
+        libraryExport: 'default',
+        globalObject: 'this'
     },
     module: {
         rules: [
