@@ -77,6 +77,10 @@ body {
     margin: 0;
 }
 
+.post-cover-img {
+    width: 100%;
+}
+
 .post-publishedDate {
     text-transform: uppercase;
     font-size: 0.8em;

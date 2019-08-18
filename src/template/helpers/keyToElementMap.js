@@ -11,7 +11,7 @@ export default (key) => {
                     {
                         name: 'click', 
                         handler: (e, data) => {
-                            if(store.getData('currentPath') !== `/post/${data._id}`) history().push(`/post/${data._id}`)
+                            if(store.getData('currentPath') !== `/post/${data.publicUrl || data._id}`) history().push(`/post/${data.publicUrl || data._id}`)
                             window.scrollTo(0, 0)
                         }
                     }
@@ -45,6 +45,11 @@ export default (key) => {
             return {
                 tag: 'img',
                 className: 'post-img'
+            }
+        case 'coverImage':
+            return {
+                tag: 'img',
+                className: 'post-cover-img'
             }
         default:
             return {

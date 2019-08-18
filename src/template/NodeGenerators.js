@@ -28,7 +28,11 @@ export const fillListElement = (el, data, { minimiseContent = true, viewFilter }
     dataKeys.forEach(key => {
         let elementConfig = keyToElement(key)
         element[key] = d.createElement(elementConfig.tag)
+        console.log(key, elementConfig)
         switch(key) {
+            case 'image':
+            case 'coverImage':
+                element[key].src = data[key]
             case 'content':
                 element[key].innerHTML = minimiseContent ? data[key].slice(0, 100) : data[key]
                 break

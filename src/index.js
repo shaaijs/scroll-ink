@@ -9,6 +9,7 @@ console.log('Hello, Shaai!')
 class ScrollInk {
     constructor(config) {
         this.config = config
+        this.defaultTemplates = defaultTemplates
         let meta = document.createElement('meta')
         meta.content = 'width=device-width, initial-scale=1'
         meta.name = 'viewport'
