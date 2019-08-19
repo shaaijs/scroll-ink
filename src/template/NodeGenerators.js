@@ -26,6 +26,7 @@ export const fillListElement = (el, data, { minimiseContent = true, viewFilter }
         return viewFilter.indexOf(a) - viewFilter.indexOf(b)
     }) : Object.keys(data)
     dataKeys.forEach(key => {
+        if(!data[key]) return
         let elementConfig = keyToElement(key)
         element[key] = d.createElement(elementConfig.tag)
         switch(key) {
