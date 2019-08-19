@@ -31,10 +31,17 @@ export default [
         path: '/about',
         name: 'About',
         template: ({ config }) => {
-            let html = config.about || `
+            let configAbout = config.about
+            let html = configAbout ? (typeof configAbout === 'string' ? configAbout : `
                 <div>
-                    <h4 class="about-heading">About me</h4>
-                    <p class="about-content">Hello there! I am <a href="https://github.com/mohtik05">@mohitk05</a></p>
+                    <h4 class="about-heading">${configAbout.title}</h4>
+                    <p class="about-image">${configAbout.image}</p>
+                    <p class="about-content">${configAbout.content}</p>
+                </div>
+            `) : `
+                <div>
+                    <h4 class="about-heading">About you</h4>
+                    <p class="about-content">Write something about yourslef here!</p>
                 </div>
             `
             let about = document.createElement('div')
