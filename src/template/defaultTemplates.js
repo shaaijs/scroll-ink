@@ -21,9 +21,8 @@ export default [
         name: 'Single Post',
         template: ({ data }) => one(data, { minimiseContent: false, viewFilter: ['title', 'coverImage', 'content', 'publishData'] }),
         fetch: (shaai, store, params) => {
+            let id = params[1].split('-')[params[1].split('-').length - 1]
             if(store.getData('posts')) {
-                let id = params[1].split('-')[params[1].split('-').length - 1]
-                console.log(id, params[1], params[1].split('-'))
                 return new Promise(res => res(store.getData('posts').filter(p => p._id === id)))
             } else return new Promise(res => shaai.getBlogs().then(data => res(data.items.filter(p => p._id === id))))
         }
