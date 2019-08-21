@@ -34,9 +34,11 @@ const config = {
     // Described below
 }
 ```
+To include styles, add this line to your CSS file:
+`@import "~@shaai/scroll-ink/dist/main.css"`
 
 #### 2. Using with Vanilla JavaScript
-- __Using Node__
+- __Using in a Node dev environment__
 
     To use in a Node project, install scroll-ink first.
 
@@ -61,6 +63,8 @@ const config = {
         b.append(dom)
     })
     ```
+    To include styles, add this line to your CSS file:
+    `@import "~@shaai/scroll-ink/dist/main.css"`
 
 - __Using in the browser__
     To use Shaai in the browser directly, we recommend using unpkg to source the build files. Just include these lines inside your `<head>` tag of your HTML document.
