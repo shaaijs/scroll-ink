@@ -40,7 +40,7 @@ const config = {
 
     To use in a Node project, install scroll-ink first.
 
-    `npm install --save @scroll-ink`
+    `npm install --save @shaai/scroll-ink`
 
     Then import and initialise it with the `config` object.
     ```js
@@ -83,7 +83,7 @@ const config = {
 #### The `config` object
 Each Shaai instance needs to be initialised with a config object to make Shaai work as the way you want. You can pass in following properties currently:
 
-In progress.
+
 
 #### Templates
 A template object can look as below
