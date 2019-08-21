@@ -1,13 +1,13 @@
 ![Scroll](https://i.imgur.com/xhwr9Il.png)
 # Ink
 
-#### Scrolls
-Scrolls _(aka templates)_ are a pre-defined way of displaying data from Shaai.
+## Scrolls
+Scrolls _(aka templates)_ are a pre-defined way of displaying data from Shaai. They are named as `scroll-*`, `*` being the name. Ink's npm package, hence, is `@shaai/scroll-ink`.
 
-#### Usage
+## Usage
 Shaai is a pluggable blogging framework, allowing you to use elements as per your need. All the __scrolls__ use the `@shaai/core` package internally to source the blog data. According to your environment, you may use a scroll in following ways:
 
-##### 1. Using with React
+#### 1. Using with React
 Using Shaai with React is super easy, thanks to our React wrapper [`@shaai/react`](https://github.com/shaaijs/react). Install the two dependencies required.
 
 ```js
@@ -35,7 +35,7 @@ const config = {
 }
 ```
 
-##### 2. Using with Vanilla JavaScript
+#### 2. Using with Vanilla JavaScript
 - __Using Node__
 
     To use in a Node project, install scroll-ink first.
@@ -80,12 +80,42 @@ const config = {
     }
     ```
 
-#### The `config` object
+## The `config` object
 Each Shaai instance needs to be initialised with a config object to make Shaai work as the way you want. You can pass in following properties currently:
 
+| Property | Type | Description | Default |
+| -------- | ---- | ----------- | ------- |
+| `source`   | object | Has information about where to source the blog data from | required |
+| `basePath` | string | Relative path where your blog will rest e.g. `/blog` | `''` |
+| `blogHeader` | object / HTMLElement | Data to be rendered in the blog header `{ title: 'My blog' }` | Default header |
+| `blogFooter` | object / HTMLElement | Data to be rendered in the blog footer `{ title: 'Some text' }` | Default header |
+| `globalHeader` | boolean | If true, the header will be shown on all routes. Can be overriden at route level in the templates. | `false` |
+| `globalFooter` | boolean | If true, the footer will be shown on all routes. Can be overriden at route level in the templates. | `false` |
+| `globalNav` | boolean | If true, the nav bar will be shown on all routes. Can be overriden at route level in the templates. | `false` |
+
+##### `source` object
+| Property | Type | Description | Default |
+| -------- | ---- | ----------- | ------- |
+| `name`   | string | Name of the data source `CMS | FS | MEDIUM` | required |
+| `config`   | object | Contains config data for the source e.g. `{ blogCode: 12345asdf }` for `source = 'CMS'` | required |
 
 
-#### Templates
+## Templates
+Templates are the route-based views in scroll-ink. It is an array of template objects which have following properties:
+
+#### `path`
+This is the path/route for the template. Whenever the window path matches this value, the corresponding template will be rendered.
+
+#### `fetch`
+This is the method which is called before rendering the respective view. It receives the `shaai` instance, the `store` and the url `params`. While most views would requiring fetching data, you can skip this property if only static data has to be rendered.
+
+#### `template`
+This is the function that returns the actual DOM snippet for the matched path. It receives the `data` received from the `fetch` function, if any, and should return a HTMLElement object.
+
+#### `name`
+This property is used at places like the navigation bar, to mention the matched path's name.
+
+
 A template object can look as below
 ```js
 const templates = [
@@ -124,7 +154,7 @@ const templates = [
     }
 ]
 ```
-TODO
 
-#### Development
+
+## Development
 Run `npm run start:dev` for starting the Webpack dev server.
