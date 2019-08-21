@@ -100,7 +100,7 @@ Each Shaai instance needs to be initialised with a config object to make Shaai w
 ##### `source` object
 | Property | Type | Description | Default |
 | -------- | ---- | ----------- | ------- |
-| `name`   | string | Name of the data source `CMS | FS | MEDIUM` | required |
+| `name`   | string | Name of the data source `CMS / FS / MEDIUM` | `'CMS'` |
 | `config`   | object | Contains config data for the source e.g. `{ blogCode: 12345asdf }` for `source = 'CMS'` | required |
 
 
