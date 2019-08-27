@@ -83,6 +83,9 @@ To include styles, add this line to your CSS file:
         })
     }
     ```
+Here's a short video to setup your first blog using Shaai and React.
+
+[![Setting up your first blog](https://i.imgur.com/Ebft2t0l.png)](http://www.youtube.com/watch?v=VESOKt5-7yU)
 
 ## The `config` object
 Each Shaai instance needs to be initialised with a config object to make Shaai work as the way you want. You can pass in following properties currently:
