@@ -1,6 +1,6 @@
 ![Scroll](https://i.imgur.com/xhwr9Il.png)
 # Ink
-
+[![npm version](https://badge.fury.io/js/%40shaai%2Fscroll-ink.svg)](https://badge.fury.io/js/%40shaai%2Fscroll-ink)
 ## Scrolls
 Scrolls _(aka templates)_ are a pre-defined way of displaying data from Shaai. They are named as `scroll-*`, `*` being the name. Ink's npm package, hence, is `@shaai/scroll-ink`.
 
