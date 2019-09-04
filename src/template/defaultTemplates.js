@@ -3,7 +3,7 @@ export default [
     {
         path: '/',
         name: 'Posts',
-        template: ({ data }) => list(data, { minimiseContent: true, viewFilter: ['title', 'modified', 'subtitle'] }),
+        template: ({ data, config }) => list(data, { minimiseContent: true, viewFilter: ['title', 'modified', 'subtitle'] }, config),
         fetch: (shaai, store, params) => {
             return new Promise(res => {
                 if(store.getData('posts')) {
@@ -19,7 +19,7 @@ export default [
     {
         path: '/post/:id',
         name: 'Single Post',
-        template: ({ data }) => one(data, { minimiseContent: false, viewFilter: ['title', 'coverImage', 'content', 'publishData'] }),
+        template: ({ data, config }) => one(data, { minimiseContent: false, viewFilter: ['title', 'coverImage', 'content', 'publishData'] }, config),
         fetch: (shaai, store, params) => {
             let id = params[1].split('-')[params[1].split('-').length - 1]
             if(store.getData('posts')) {
