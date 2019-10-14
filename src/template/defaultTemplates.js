@@ -41,7 +41,7 @@ export default [
             `) : `
                 <div>
                     <h4 class="about-heading">About you</h4>
-                    <p class="about-content">Write something about yourslef here!</p>
+                    <p class="about-content">Write something about yourself here!</p>
                 </div>
             `
             let about = document.createElement('div')
